@@ -1,0 +1,37 @@
+name: Data Preprocessing Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Conda Environment
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          environment-file: conda.yml
+          activate-environment: crop-env
+          auto-activate-base: false
+          use-mamba: true
+
+      - name: Run preprocessing script
+        shell: bash -l {0}
+        run: |
+          python preprocessing/automate_yusufsugiono.py
+
+      - name: Upload preprocessing artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: preprocessing-artifacts
+          path: |
+            preprocessing/CropRecommendation_preprocessing/train_preprocessed.csv
+            preprocessing/CropRecommendation_preprocessing/test_preprocessed.csv
+            preprocessing/CropRecommendation_preprocessing/preprocessor.joblib
+            preprocessing/CropRecommendation_preprocessing/label_encoder.joblib
+            preprocessing/CropRecommendation_preprocessing/feature_columns.csv
