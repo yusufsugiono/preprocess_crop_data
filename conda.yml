@@ -2,7 +2,6 @@ name: submission_msml
 channels:
   - defaults
 dependencies:
-  - asttokens=3.0.1=py312haa95532_0
   - bzip2=1.0.8=h2bbff1b_6
   - ca-certificates=2025.12.2=haa95532_0
   - colorama=0.4.6=py312haa95532_0
